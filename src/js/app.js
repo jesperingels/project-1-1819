@@ -9,8 +9,7 @@ console.log(api);
 //name says.
 
 (async () => {
-    const iterator = await api.createIterator(
-        "search/classification:prentenboek"
+    const iterator = await api.createIterator("search/isbn/id=9781472209344&authorization=1e19898c87464e239192c8bfe422f280"
     );
     for await (const response of iterator) {
         console.log(response);
@@ -36,11 +35,19 @@ if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'fun
         Quagga.start();
     });
     // document.querySelector('#finder').style.setProperty("display","none");
-    Quagga.onDetected((e)=>{
-        console.log(e.codeResult.code);
+    Quagga.onDetected((data)=>{
+        console.log(data.codeResult.code);
         // Quagga.stop();
-    })
+    });
+
+    console.log(Quagga.onDetected.data);
 }else{
     console.log('err')
 }
+
+// const req = {
+//
+// };
+
+
 
