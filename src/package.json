@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "oba-wrapper": "github:maanlamp/OBA-wrapper"
+    "oba-wrapper": "github:maanlamp/OBA-wrapper",
+    "quagga": "^0.12.1"
   }
 }
