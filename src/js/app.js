@@ -1,5 +1,4 @@
 import{ API } from"../node_modules/oba-wrapper/js/index.js";
-import Quagga from "../node_modules/quagga";
 
 const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
@@ -18,20 +17,30 @@ console.log(api);
     }
 })();
 
-Quagga.init({
-    inputStream : {
-        name : "Live",
-        type : "LiveStream",
-        target: document.querySelector('#yourElement')    // Or '#yourElement' (optional)
-    },
-    decoder : {
-        readers : ["code_128_reader"]
-    }
-}, function(err) {
-    if (err) {
-        console.log(err);
-        return
-    }
-    console.log("Initialization finished. Ready to start");
-    Quagga.start();
-});
+if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function'){
+    Quagga.init({
+        inputStream : {
+            name : "Live",
+            type : "LiveStream",
+            target: document.querySelector('body')    // Or '#yourElement' (optional)
+        },
+        decoder : {
+            readers : ["ean_reader"]
+        }
+    }, function(err) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+    // document.querySelector('#finder').style.setProperty("display","none");
+    Quagga.onDetected((e)=>{
+        console.log(e.codeResult.code);
+        // Quagga.stop();
+    })
+}else{
+    console.log('err')
+}
+
