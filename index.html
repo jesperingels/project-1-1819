@@ -3,12 +3,12 @@
 <!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
 <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
-<script src="public/three.js/build/three.js"></script>
+<script src="src/three.js/build/three.js"></script>
 <body style='margin : 0px; overflow: hidden;'>
 <a-scene embedded arjs='sourceType: webcam;'>
     <a-assets>
-        <video id="train" src="public/video/yellow-train02.mp4" autoplay loop="true"></video>
-        <img id="tower" src="public/img/watchtower.jpg">
+        <video id="train" src="src/video/yellow-train02.mp4" autoplay loop="true"></video>
+        <img id="tower" src="src/img/watchtower.jpg">
     </a-assets>
     <a-plane position='0 0 0' rotation="90 0 180">
         <a-video src="#train"></a-video>
