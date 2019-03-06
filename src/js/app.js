@@ -92,7 +92,8 @@ const data = {
             ARButton.style.display = 'block';
 
             // console.log(response.identifiers["isbn-id"]._text);
-
+            // console.log(response.identifiers["isbn-id"]._text === "=9789020415629")
+            
             if (response.identifiers["isbn-id"]._text === "=9789020415629") {
                 ARButton.addEventListener('click', AR.showTheCallOfTheWild);
             } else {
