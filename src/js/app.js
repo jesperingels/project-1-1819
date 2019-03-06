@@ -93,8 +93,6 @@ const data = {
     }
 };
 
-data.render();
-
 const scanner = {
 
     init: () => {
