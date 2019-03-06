@@ -72,6 +72,8 @@ const data = {
 
         for await (const response of iterator) {
 
+            console.log(response);
+
             const bookTitle = response.titles.title._text;
             const bookInfo = document.querySelector('.book-info');
             const infoWrap = document.createElement('div');
@@ -88,6 +90,12 @@ const data = {
             infoWrap.appendChild(elTitle);
 
             ARButton.style.display = 'block';
+
+            if (bookTitle === 'De roep van de wildernis / Jack London') {
+                ARButton.addEventListener('click', AR.showTheCallOfTheWild);
+            } else {
+                console.log('wrong book');
+            }
 
         }
     }
@@ -134,12 +142,11 @@ const scanner = {
 };
 
 const AR = {
-    init: () => {
+    showTheCallOfTheWild: () => {
         document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="train" src="src/video/yellow-train02.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180"> <a-video src="#train"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
     }
 };
 
-ARButton.addEventListener('click', AR.init);
 
 
 
