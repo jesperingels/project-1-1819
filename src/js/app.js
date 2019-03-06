@@ -67,8 +67,8 @@ console.log(api);
 const data = {
 
     render: async (endpoint) => {
-        // const iterator = await api.createIterator(`search/${endpoint}`);
-        const iterator = await api.createIterator(`search/9781472209344`);
+        const iterator = await api.createIterator(`search/${endpoint}`);
+        // const iterator = await api.createIterator(`search/9781472209344`);
 
         for await (const response of iterator) {
 
@@ -121,7 +121,7 @@ const scanner = {
             Quagga.onDetected((res)=>{
                 console.log(res.codeResult.code);
 
-                // data.render(res.codeResult.code);
+                data.render(res.codeResult.code);
 
                 Quagga.stop();
             });
