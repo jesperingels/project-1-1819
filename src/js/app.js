@@ -4,17 +4,30 @@ const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
 });
 console.log(api);
+
 //Imagine the functions toJson, cleanJSON and
 //renderToDocument exist, and do what their
 //name says.
 
-(async () => {
-    const iterator = await api.createIterator("search/isbn/id=9781472209344&authorization=1e19898c87464e239192c8bfe422f280"
-    );
-    for await (const response of iterator) {
-        console.log(response);
+// (async () => {
+//     const iterator = await api.createIterator("search/9781472209344"
+//     );
+//     for await (const response of iterator) {
+//         console.log(response);
+//     }
+// })();
+
+const data = {
+
+    req: async (string) => {
+        const iterator = await api.createIterator(`search/${string}`);
+        
+        for await (const response of iterator) {
+            console.log(response);
+        }
     }
-})();
+};
+
 
 if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function'){
     Quagga.init({
@@ -35,9 +48,11 @@ if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'fun
         Quagga.start();
     });
     // document.querySelector('#finder').style.setProperty("display","none");
-    Quagga.onDetected((data)=>{
-        console.log(data.codeResult.code);
-        // Quagga.stop();
+    Quagga.onDetected((res)=>{
+        console.log(res.codeResult.code);
+        document.getElementById('text-container').textContent = res.codeResult.code;
+        data.req(res.codeResult.code);
+        Quagga.stop();
     });
 
     console.log(Quagga.onDetected.data);
