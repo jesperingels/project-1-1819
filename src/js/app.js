@@ -1,44 +1,63 @@
+// API wrapper module
 import{ API } from"../node_modules/oba-wrapper/js/index.js";
 
-//Imagine the functions toJson, cleanJSON and
-//renderToDocument exist, and do what their
-//name says.
-
-// (async () => {
-//     const iterator = await api.createIterator("search/9781472209344"
-//     );
-//     for await (const response of iterator) {
-//         console.log(response);
-//     }
-// })();
-const scan = document.getElementById('scan');
-const head = document.querySelector('head');
+const scanButton = document.getElementById('scan');
+const ARButton = document.getElementById('AR');
+// const head = document.querySelector('head');
 
 
-scan.addEventListener('click', () => {
+scanButton.addEventListener('click', async () => {
 
     //use css custom property?
-    scan.style.display = 'none';
+    scanButton.style.display = 'none';
 
-     function insertHTML() {
-        head.insertAdjacentHTML('afterbegin', '<script id="quagga-script" src="src/node_modules/quagga/dist/quagga.min.js"></script>');
-        // quagga.addEventListener('onload', scanner.init);
+    // loadScript("src/node_modules/quagga/dist/quagga.min.js", scanner.init);
 
-         const quagga = document.querySelector('script[id="quagga-script"]');
-         console.log(quagga);
+    // await insertHTML();
 
-         // debugger;
+    scanner.init();
 
-         if (quagga) {
-             scanner.init();
-         } else {
-             console.log('script not loaded');
-         }
-    }
-
-    insertHTML();
 
 });
+
+
+
+// function loadScript(url, callback) {
+//     // Adding the script tag to the head as suggested before
+//     const head = document.head;
+//     const script = document.createElement('script');
+//     script.type = 'text/javascript';
+//     script.src = url;
+//
+//     // Then bind the event to the callback function.
+//     // There are several events for cross browser compatibility.
+//     script.onreadystatechange = callback;
+//     script.onload = callback;
+//
+//     // Fire the loading
+//     head.appendChild(script);
+// }
+
+// function insertHTML() {
+//     head.insertAdjacentHTML('afterbegin', '<script id="quagga-script" src="src/node_modules/quagga/dist/quagga.min.js"></script>');
+//
+//     // const quaggaScript = document.querySelector('script[id="quagga-script"]');
+//     //
+//     //
+//     // console.log(Quagga);
+//     //
+//     // window.addEventListener('load', scanner.init);
+//     //
+//     // // debugger;
+//     //
+//     // if (quagga) {
+//     //     scanner.init();
+//     // } else {
+//     //     console.log('script not loaded');
+//     // }
+// }
+
+// require.defined("my/awesome/defined/module");
 
 const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
@@ -47,21 +66,40 @@ console.log(api);
 
 const data = {
 
-    req: async (endpoint) => {
-        const iterator = await api.createIterator(`search/${endpoint}`);
+    render: async (endpoint) => {
+        // const iterator = await api.createIterator(`search/${endpoint}`);
+        const iterator = await api.createIterator(`search/9781472209344`);
 
         for await (const response of iterator) {
-            console.log(response)
-            // document.getElementById('text-container').textContent = response.titles.short-title._text
+
+            const bookTitle = response.titles.title._text;
+            const bookInfo = document.querySelector('.book-info');
+            const infoWrap = document.createElement('div');
+            const elTitle = document.createElement('h2');
+
+            document.getElementById("quagga-script").outerHTML = "";
+            document.querySelector('video').style.display = 'none';
+            document.querySelector('canvas').style.display = 'none';
+
+            elTitle.textContent = bookTitle;
+
+            bookInfo.style.display = 'flex';
+            bookInfo.appendChild(infoWrap);
+            infoWrap.appendChild(elTitle);
+
+            ARButton.style.display = 'block';
+
         }
     }
 };
+
+data.render();
 
 const scanner = {
 
     init: () => {
         console.log('init scanner');
-        if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function' && document.getElementById('quagga-script')) {
+        if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
             Quagga.init({
                 inputStream : {
                     name : "Live",
@@ -82,7 +120,9 @@ const scanner = {
 
             Quagga.onDetected((res)=>{
                 console.log(res.codeResult.code);
-                data.req(res.codeResult.code);
+
+                // data.render(res.codeResult.code);
+
                 Quagga.stop();
             });
 
@@ -94,6 +134,14 @@ const scanner = {
     }
 
 };
+
+const AR = {
+    init: () => {
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="train" src="src/video/yellow-train02.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180"> <a-video src="#train"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
+    }
+};
+
+ARButton.addEventListener('click', AR.init);
 
 
 
