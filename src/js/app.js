@@ -91,10 +91,13 @@ const data = {
 
             ARButton.style.display = 'block';
 
-            if (response.identifiers.isbn-id._text === "=9789020415629") {
+            // console.log(response.identifiers["isbn-id"]._text);
+
+            if (response.identifiers["isbn-id"]._text === "=9789020415629") {
                 ARButton.addEventListener('click', AR.showTheCallOfTheWild);
             } else {
-                console.log('wrong book');
+                // console.log('wrong book');
+                alert('wrong book')
             }
 
         }
