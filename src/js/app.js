@@ -67,8 +67,8 @@ console.log(api);
 const data = {
 
     render: async (endpoint) => {
-        const iterator = await api.createIterator(`search/${endpoint}`);
-        // const iterator = await api.createIterator(`search/9781472209344`);
+        // const iterator = await api.createIterator(`search/${endpoint}`);
+        const iterator = await api.createIterator(`search/9789020415629`);
 
         for await (const response of iterator) {
 
@@ -91,7 +91,7 @@ const data = {
 
             ARButton.style.display = 'block';
 
-            if (bookTitle === 'De roep van de wildernis / Jack London') {
+            if (response.identifiers.isbn-id._text === "=9789020415629") {
                 ARButton.addEventListener('click', AR.showTheCallOfTheWild);
             } else {
                 console.log('wrong book');
@@ -100,6 +100,8 @@ const data = {
         }
     }
 };
+
+data.render();
 
 const scanner = {
 
@@ -127,7 +129,7 @@ const scanner = {
             Quagga.onDetected((res)=>{
                 console.log(res.codeResult.code);
 
-                data.render(res.codeResult.code);
+                // data.render(res.codeResult.code);
 
                 Quagga.stop();
             });
@@ -143,7 +145,7 @@ const scanner = {
 
 const AR = {
     showTheCallOfTheWild: () => {
-        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="train" src="src/video/yellow-train02.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180"> <a-video src="#train"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
     }
 };
 
