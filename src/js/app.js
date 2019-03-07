@@ -39,27 +39,6 @@ scanButton.addEventListener('click', async () => {
 //     head.appendChild(script);
 // }
 
-// function insertHTML() {
-//     head.insertAdjacentHTML('afterbegin', '<script id="quagga-script" src="src/node_modules/quagga/dist/quagga.min.js"></script>');
-//
-//     // const quaggaScript = document.querySelector('script[id="quagga-script"]');
-//     //
-//     //
-//     // console.log(Quagga);
-//     //
-//     // window.addEventListener('load', scanner.init);
-//     //
-//     // // debugger;
-//     //
-//     // if (quagga) {
-//     //     scanner.init();
-//     // } else {
-//     //     console.log('script not loaded');
-//     // }
-// }
-
-// require.defined("my/awesome/defined/module");
-
 const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
 });
@@ -71,39 +50,53 @@ const data = {
         const iterator = await api.createIterator(`search/${endpoint}`);
         // const iterator = await api.createIterator(`search/9789020415629`);
 
-        for await (const response of iterator) {
+        if (!iterator) {
+            alert('Code onbekend, probeer opnieuw!')
+        } else {
 
-            console.log(response);
+            for await (const response of iterator) {
 
-            loader.style.display = 'none';
+                console.log(response);
 
-            const bookTitle = response.titles.title._text;
-            const bookInfo = document.querySelector('.book-info');
-            const infoWrap = document.createElement('div');
-            const elTitle = document.createElement('h2');
+                loader.style.display = 'none';
 
-            document.getElementById("quagga-script").outerHTML = "";
-            document.querySelector('video').style.display = 'none';
-            document.querySelector('canvas').style.display = 'none';
+                const bookTitle = response.titles.title._text;
+                const bookInfo = document.querySelector('.book-info');
+                const infoWrap = document.createElement('div');
+                const elTitle = document.createElement('h2');
+                const elImg = document.createElement('img');
+                const imgLink = response.coverimages.coverimage[0]._text;
 
-            elTitle.textContent = bookTitle;
 
-            bookInfo.style.display = 'flex';
-            bookInfo.appendChild(infoWrap);
-            infoWrap.appendChild(elTitle);
+                document.getElementById("quagga-script").outerHTML = "";
+                document.querySelector('video').style.display = 'none';
+                document.querySelector('canvas').style.display = 'none';
 
-            ARButton.style.display = 'block';
+                elTitle.textContent = bookTitle;
+                elImg.src = imgLink.replace('size=70', 'size=300');
 
-            // console.log(response.identifiers["isbn-id"]._text);
-            // console.log(response.identifiers["isbn-id"]._text === "=9789020415629")
-            
-            if (response.identifiers["isbn-id"]._text === "=9789020415629") {
-                ARButton.addEventListener('click', AR.showTheCallOfTheWild);
-            } else {
-                // console.log('wrong book');
-                alert('wrong book')
+                bookInfo.style.display = 'flex';
+                bookInfo.appendChild(infoWrap);
+                infoWrap.appendChild(elTitle);
+                infoWrap.appendChild(elImg);
+
+                ARButton.style.display = 'block';
+                infoWrap.classList.add('book-content');
+
+                // console.log(response.identifiers["isbn-id"]._text);
+                // console.log(response.identifiers["isbn-id"]._text === "=9789020415629")
+
+                if (response.identifiers["isbn-id"]._text === "=9789020415629") {
+                    ARButton.addEventListener('click', AR.showTheCallOfTheWild);
+                }
+                else if(response.identifiers["isbn-id"][0]._text === "=9789000365043") {
+                    ARButton.addEventListener('click', AR.showHawking);
+                }
+                else {
+                    // console.log('wrong book');
+                    alert('wrong book')
+                }
             }
-
         }
     }
 };
@@ -131,13 +124,15 @@ const scanner = {
                 Quagga.start();
             });
 
+            // On detection of barcode
             Quagga.onDetected((res)=>{
                 console.log(res.codeResult.code);
 
+                // Start render data with barcode as parameter
                 data.render(res.codeResult.code);
-
+                // Show loader
                 loader.style.display = 'flex';
-
+                // Stop scanning for barcode
                 Quagga.stop();
             });
 
@@ -152,7 +147,16 @@ const scanner = {
 
 const AR = {
     showTheCallOfTheWild: () => {
-        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'1.5 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'1.5 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker preset=\'hiro\'></a-marker></a-scene>');
+        // if(document.querySelector("a-marker-camera").object3D.visible === false) {
+        //         //     document.querySelector('a-plane').style.display = 'none';
+        //         // } else {
+        //         //     document.querySelector('a-plane').style.display = 'block';
+        //         // }
+    },
+
+    showHawking: ()=>{
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/hawking.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'1.5 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>');
     }
 };
 
