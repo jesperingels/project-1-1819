@@ -6,28 +6,24 @@ const ARButton = document.getElementById('AR');
 const loader = document.getElementById('loader');
 const resetButton = document.getElementById('reset');
 
+// Button events
 resetButton.addEventListener('click', ()=>{
     document.location.reload();
 });
 
-
 scanButton.addEventListener('click', () => {
-
     scanButton.style.display = 'none';
-
     scanner.init();
 });
 
 const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
 });
-console.log(api);
 
 const data = {
 
     render: async (endpoint) => {
         const iterator = await api.createIterator(`search/${endpoint}`);
-        // const iterator = await api.createIterator(`search/9789020415629`);
 
         if (!iterator) {
             alert('Code onbekend, probeer opnieuw!')
@@ -37,6 +33,7 @@ const data = {
 
                 console.log(response);
 
+                // Hide loader
                 loader.style.display = 'none';
 
                 const bookTitle = response.titles.title._text;
@@ -46,24 +43,23 @@ const data = {
                 const elImg = document.createElement('img');
                 const imgLink = response.coverimages.coverimage[0]._text;
 
-
+                // Disable scanner library
                 document.getElementById("quagga-script").outerHTML = "";
                 document.querySelector('video').style.display = 'none';
                 document.querySelector('canvas').style.display = 'none';
 
+                // Bind data to elements
                 elTitle.textContent = bookTitle;
                 elImg.src = imgLink.replace('size=70', 'size=300');
-
                 bookInfo.style.display = 'flex';
                 bookInfo.appendChild(infoWrap);
                 infoWrap.appendChild(elTitle);
                 infoWrap.appendChild(elImg);
 
+                // Add styling
                 ARButton.style.display = 'block';
                 infoWrap.classList.add('book-content');
 
-                // console.log(response.identifiers["isbn-id"]._text);
-                // console.log(response.identifiers["isbn-id"]._text === "=9789020415629")
 
                 if (response.identifiers["isbn-id"]._text === "=9789020415629") {
                     ARButton.addEventListener('click', AR.showTheCallOfTheWild);
@@ -73,7 +69,6 @@ const data = {
                     ARButton.addEventListener('click', AR.showHawking);
                 }
                 else {
-                    // console.log('wrong book');
                     alert('wrong book')
                 }
             }
@@ -84,14 +79,14 @@ const data = {
 const scanner = {
 
     init: () => {
-        console.log('init scanner');
         if(navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
             Quagga.init({
                 inputStream : {
                     name : "Live",
                     type : "LiveStream",
-                    target: document.querySelector('body')    // Or '#yourElement' (optional)
+                    target: document.querySelector('body')
                 },
+                // Set barcode type
                 decoder : {
                     readers : ["ean_reader"]
                 }
@@ -115,8 +110,6 @@ const scanner = {
                 // Stop scanning for barcode
                 Quagga.stop();
             });
-
-            console.log(Quagga.onDetected.data);
 
         } else{
             console.log('err')
