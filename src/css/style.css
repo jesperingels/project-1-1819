@@ -88,6 +88,11 @@ svg {
     animation: rotate 1s infinite;
 }
 
+.a-enter-vr.embedded,
+#arjsDebugUIContainer{
+    display: none;
+}
+
 @keyframes rotate {
     0% {transform: rotate(0deg)}
     100% {transform: rotate(360deg)}
