@@ -4,40 +4,19 @@ import{ API } from"../node_modules/oba-wrapper/js/index.js";
 const scanButton = document.getElementById('scan');
 const ARButton = document.getElementById('AR');
 const loader = document.getElementById('loader');
-// const head = document.querySelector('head');
+const resetButton = document.getElementById('reset');
 
-
-scanButton.addEventListener('click', async () => {
-
-    //use css custom property?
-    scanButton.style.display = 'none';
-
-    // loadScript("src/node_modules/quagga/dist/quagga.min.js", scanner.init);
-
-    // await insertHTML();
-
-    scanner.init();
-
-
+resetButton.addEventListener('click', ()=>{
+    document.location.reload();
 });
 
 
+scanButton.addEventListener('click', () => {
 
-// function loadScript(url, callback) {
-//     // Adding the script tag to the head as suggested before
-//     const head = document.head;
-//     const script = document.createElement('script');
-//     script.type = 'text/javascript';
-//     script.src = url;
-//
-//     // Then bind the event to the callback function.
-//     // There are several events for cross browser compatibility.
-//     script.onreadystatechange = callback;
-//     script.onload = callback;
-//
-//     // Fire the loading
-//     head.appendChild(script);
-// }
+    scanButton.style.display = 'none';
+
+    scanner.init();
+});
 
 const api = new API({
     key: "1e19898c87464e239192c8bfe422f280"
@@ -88,6 +67,7 @@ const data = {
 
                 if (response.identifiers["isbn-id"]._text === "=9789020415629") {
                     ARButton.addEventListener('click', AR.showTheCallOfTheWild);
+
                 }
                 else if(response.identifiers["isbn-id"][0]._text === "=9789000365043") {
                     ARButton.addEventListener('click', AR.showHawking);
@@ -148,15 +128,14 @@ const scanner = {
 const AR = {
     showTheCallOfTheWild: () => {
         document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker preset=\'hiro\'></a-marker></a-scene>');
-        // if(document.querySelector("a-marker-camera").object3D.visible === false) {
-        //         //     document.querySelector('a-plane').style.display = 'none';
-        //         // } else {
-        //         //     document.querySelector('a-plane').style.display = 'block';
-        //         // }
+        resetButton.style.display = 'block';
+        document.body.style.overflow = 'hidden';
     },
 
     showHawking: ()=>{
         document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/hawking.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>');
+        resetButton.style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 };
 
