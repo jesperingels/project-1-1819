@@ -120,13 +120,13 @@ const scanner = {
 
 const AR = {
     showTheCallOfTheWild: () => {
-        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>');
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'custom\' type=\'pattern\' url=\'../src/img/pattern-marker.patt\'></a-marker-camera></a-scene>');
         resetButton.style.display = 'block';
         document.body.style.overflow = 'hidden';
     },
 
     showHawking: ()=>{
-        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/hawking.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>');
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/hawking.mp4" autoplay loop="true"></video> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180" scale="-4 3 0"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'custom\' type=\'pattern\' url=\'../src/img/pattern-marker.patt\'></a-marker-camera></a-scene>');
         resetButton.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }

@@ -49,8 +49,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="125" column="6" lean-forward="true" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
+            <state relative-caret-position="304">
+              <caret line="128" column="376" selection-start-line="128" selection-start-column="376" selection-end-line="128" selection-end-column="376" />
             </state>
           </provider>
         </entry>
@@ -116,7 +116,7 @@
               <item name="project-1-1819" type="b2602c69:ProjectViewProjectNode" />
               <item name="project-1-1819" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="project-1-1819" type="b2602c69:ProjectViewProjectNode" />
@@ -164,12 +164,12 @@
       <updated>1551787937697</updated>
       <workItem from="1551787939488" duration="8451000" />
       <workItem from="1551865212749" duration="13353000" />
-      <workItem from="1551951910140" duration="9809000" />
+      <workItem from="1551951910140" duration="10226000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32583000" />
+    <option name="totallyTimeSpent" value="33000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="713" extended-state="6" />
@@ -295,8 +295,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="125" column="6" lean-forward="true" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
+        <state relative-caret-position="304">
+          <caret line="128" column="376" selection-start-line="128" selection-start-column="376" selection-end-line="128" selection-end-column="376" />
         </state>
       </provider>
     </entry>
