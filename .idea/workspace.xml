@@ -49,15 +49,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="81" selection-start-line="81" selection-end-line="81" />
+            <state relative-caret-position="259">
+              <caret line="125" column="6" lean-forward="true" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/img/OBA.svg">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -169,12 +164,12 @@
       <updated>1551787937697</updated>
       <workItem from="1551787939488" duration="8451000" />
       <workItem from="1551865212749" duration="13353000" />
-      <workItem from="1551951910140" duration="9535000" />
+      <workItem from="1551951910140" duration="9809000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32309000" />
+    <option name="totallyTimeSpent" value="32583000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="713" extended-state="6" />
@@ -300,8 +295,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
+        <state relative-caret-position="259">
+          <caret line="125" column="6" lean-forward="true" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
         </state>
       </provider>
     </entry>
