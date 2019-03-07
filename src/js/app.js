@@ -3,6 +3,7 @@ import{ API } from"../node_modules/oba-wrapper/js/index.js";
 
 const scanButton = document.getElementById('scan');
 const ARButton = document.getElementById('AR');
+const loader = document.getElementById('loader');
 // const head = document.querySelector('head');
 
 
@@ -74,6 +75,8 @@ const data = {
 
             console.log(response);
 
+            loader.style.display = 'none';
+
             const bookTitle = response.titles.title._text;
             const bookInfo = document.querySelector('.book-info');
             const infoWrap = document.createElement('div');
@@ -133,6 +136,8 @@ const scanner = {
 
                 data.render(res.codeResult.code);
 
+                loader.style.display = 'flex';
+
                 Quagga.stop();
             });
 
@@ -147,7 +152,7 @@ const scanner = {
 
 const AR = {
     showTheCallOfTheWild: () => {
-        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'0 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
+        document.body.insertAdjacentHTML('afterbegin', '<a-scene embedded arjs=\'sourceType: webcam;\'> <a-assets> <video id="video" src="src/video/callofthewild.mp4" autoplay loop="true"></video> <img id="tower" src="src/img/watchtower.jpg"> </a-assets> <a-plane position=\'1.5 0 0\' rotation="90 0 180"> <a-video src="#video"></a-video> </a-plane> <a-marker-camera preset=\'hiro\'></a-marker-camera></a-scene>')
     }
 };
 
